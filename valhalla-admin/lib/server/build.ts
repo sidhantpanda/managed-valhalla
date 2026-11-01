@@ -307,9 +307,11 @@ function runCommand(command: string, args: string[], signal: AbortSignal, log: (
     child.stdout.on('data', (chunk: Buffer) => collect(chunk, true))
     child.stderr.on('data', (chunk: Buffer) => collect(chunk, false))
     child.on('error', reject)
-    child.on('close', (code) => {
+    child.on('close', (code, killedBy) => {
       if (code === 0) resolve({ stdout })
-      else reject(new Error(`${command} exited with code ${code}`))
+      // The kernel's OOM killer sends SIGKILL when the container hits its memory limit.
+      else if (killedBy === 'SIGKILL' && !signal.aborted) reject(new BuildError(`${command} ran out of memory. Raise VALHALLA_ADMIN_MEM_LIMIT (or lower VALHALLA_BUILD_THREADS) and apply again`))
+      else reject(new Error(killedBy ? `${command} was stopped by ${killedBy}` : `${command} exited with code ${code}`))
     })
   })
 }

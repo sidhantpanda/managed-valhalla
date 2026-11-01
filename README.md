@@ -54,7 +54,14 @@ Both apps read `VALHALLA_URL` on the server (default `http://localhost:8002` in 
 
 Serving fits in 4 GB because tiles are memory-mapped and only the ones near a request are read. Measured on the New York build under load (marathon-length loops, 4 threads): about 0.9–1.1 GB of process memory, plus 200–400 MB of mapped tile pages that the kernel reclaims under pressure. Process memory is mostly per-thread route search state, so it scales with route length and `VALHALLA_THREADS`, not with map size.
 
-Building is what needs memory. A US state or a small country builds within the admin's 3 GB cap. A large country, a continent or the planet does not.
+Building is what needs memory, mostly in the "Finish routing tiles" step. Measured with 4 build threads:
+
+| Regions (extract size) | Build process memory | Fits `VALHALLA_ADMIN_MEM_LIMIT=3g`? |
+|---|---|---|
+| New York + Connecticut (0.7 GB) | under 1 GB | Yes |
+| New York + Netherlands (1.9 GB) | about 3.9 GB | No: killed for lack of memory; built fine at `6g` |
+
+When a build runs out of memory the admin says so, and Valhalla keeps serving the previous tiles. Raise `VALHALLA_ADMIN_MEM_LIMIT` (it also uses any spare memory as file cache, which is harmless), or build big regions on another machine as described below.
 
 ## Planet (or any big region) on the homelab
 
