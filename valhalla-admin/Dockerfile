@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM node:24-bookworm-slim AS node
+FROM node:26-bookworm-slim AS node
 
 # Install dependencies (dev ones are needed to build).
 FROM node AS deps
