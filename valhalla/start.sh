@@ -14,7 +14,7 @@ done
 
 # The admin writes a fresh valhalla.json on every build, so re-apply the memory and distance limits each start.
 tune() {
-  # Loops only need a few dozen points; keep walking/cycling distance limits generous enough for 100 km rides.
+  # Raise Valhalla's default pedestrian and bicycle distance limits to 250 km and 500 km.
   jq --argjson cache "${VALHALLA_MAX_CACHE_BYTES}" \
     '.mjolnir.max_cache_size = $cache
      | .service_limits.pedestrian.max_distance = 250000

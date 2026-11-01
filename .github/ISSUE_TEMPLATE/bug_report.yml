@@ -1,0 +1,29 @@
+name: Bug report
+description: Something doesn't work as documented
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: input
+    id: regions
+    attributes:
+      label: Regions
+      description: The regions installed, for example `us/new-york europe/monaco`.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Output of `docker compose logs valhalla-admin valhalla` around the problem.
+      render: text
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, CPU architecture, total RAM, Docker version, and any `.env` overrides.
+    validations:
+      required: true

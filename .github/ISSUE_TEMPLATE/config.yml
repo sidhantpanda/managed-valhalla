@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Valhalla routing questions
+    url: https://github.com/valhalla/valhalla/discussions
+    about: Questions about Valhalla's API, costing models or route results belong upstream.

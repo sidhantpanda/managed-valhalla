@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  admin:
+    name: Admin build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: valhalla-admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+  stack:
+    name: Compose, shell and image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate compose.yaml
+        run: docker compose config --quiet
+      - name: Shellcheck
+        run: shellcheck valhalla/start.sh
+      - name: Build admin image
+        run: docker build valhalla-admin

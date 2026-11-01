@@ -1,4 +1,4 @@
-# Self-hosted Valhalla routing for run-buddy and walking-route-generator.
+# Self-hosted Valhalla routing with a web admin for choosing map regions.
 # valhalla-admin (http://localhost:8003) downloads OpenStreetMap regions and builds routing tiles into ./data/valhalla;
 # valhalla serves them and restarts onto each new build.
 name: geo-engine
@@ -18,7 +18,7 @@ services:
       - ./valhalla/start.sh:/geo-engine/start.sh:ro
     ports:
       - "${VALHALLA_PORT:-8002}:8002"
-    # The homelab has 4 GB in total; leave room for the OS, the admin and the two apps.
+    # Sized so the whole stack fits on a 4 GB machine; raise it if you have more memory.
     mem_limit: ${VALHALLA_MEM_LIMIT:-3g}
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8002/status"]
@@ -39,7 +39,7 @@ services:
       # Installed automatically when the data volume has no regions yet.
       DEFAULT_REGIONS: ${VALHALLA_DEFAULT_REGIONS:-us/new-york}
       BUILD_THREADS: ${VALHALLA_BUILD_THREADS:-4}
-      # Adds hill grades so routes can avoid steep climbs; downloads elevation data for the built area.
+      # Adds elevation and road grades so routes can weigh hills; downloads elevation data for the built area.
       BUILD_ELEVATION: ${VALHALLA_BUILD_ELEVATION:-true}
     volumes:
       - ./data/valhalla:/custom_files
