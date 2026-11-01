@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* Survey-chart palette: cool paper, slate ink, survey blue for water and progress, contour grey-green for lines. */
+:root {
+  --paper: #f3f6f4;
+  --sheet: #fbfcfb;
+  --ink: #1d2b33;
+  --ink-soft: #4d5f66;
+  --contour: #8aa39b;
+  --rule: #d5dfdb;
+  --water: #2f6f8f;
+  --water-tint: #dbe9ef;
+  --land: #b9d1a6;
+  --road: #b3392f;
+  --road-tint: #f5e1de;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1c24;
+    --sheet: #15252f;
+    --ink: #e3ece8;
+    --ink-soft: #a6b8b2;
+    --contour: #6d8a82;
+    --rule: #2a3d47;
+    --water: #6fb3d2;
+    --water-tint: #1b3644;
+    --land: #5f7d52;
+    --road: #e2786d;
+    --road-tint: #3a2220;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0f1c24;
+  --sheet: #15252f;
+  --ink: #e3ece8;
+  --ink-soft: #a6b8b2;
+  --contour: #6d8a82;
+  --rule: #2a3d47;
+  --water: #6fb3d2;
+  --water-tint: #1b3644;
+  --land: #5f7d52;
+  --road: #e2786d;
+  --road-tint: #3a2220;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-contour: var(--contour);
+  --color-rule: var(--rule);
+  --color-water: var(--water);
+  --color-water-tint: var(--water-tint);
+  --color-land: var(--land);
+  --color-road: var(--road);
+  --color-road-tint: var(--road-tint);
+  --font-sans: var(--font-archivo);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Region names are set condensed, like place labels on a map. */
+.map-label {
+  font-stretch: 72%;
+  letter-spacing: 0.01em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--water);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
