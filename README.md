@@ -35,6 +35,24 @@ curl -s http://localhost:8002/route --json '{
 
 Every Valhalla endpoint (`/route`, `/optimized_route`, `/isochrone`, `/matrix`, `/trace_route`, `/height` and so on) works. Distance limits for `pedestrian` (250 km) and `bicycle` (500 km) routes are raised above Valhalla's defaults in [`valhalla/start.sh`](valhalla/start.sh).
 
+### Does Valhalla cover a point?
+
+The admin answers that for routing clients, so they can try Valhalla only where it has tiles and fall back to another router elsewhere:
+
+```sh
+curl -s 'http://localhost:8003/api/coverage?lat=48.137&lng=11.575'
+# {"covered":false,"servedBy":null,"region":{"id":"oberbayern","name":"Oberbayern"},"country":{"id":"germany","name":"Germany"}}
+```
+
+| Field | Meaning |
+|---|---|
+| `covered` | Valhalla's current tiles include the point |
+| `servedBy` | The installed region that covers it (`planet` if the planet is installed), or `null` |
+| `region` | The smallest Geofabrik region containing the point: the one to add to cover it. `null` at sea |
+| `country` | That region's country (one level below a continent), or `null` |
+
+It uses Geofabrik's region outlines (about 4 MB), cached in `data/valhalla/admin/` and refreshed daily, and answers in a few milliseconds. Region ids are Geofabrik's, the same ones the admin installs, so a client can count requests by `region` and show which regions are worth adding.
+
 ## Managing regions
 
 In the admin:

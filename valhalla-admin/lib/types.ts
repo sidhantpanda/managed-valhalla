@@ -7,6 +7,20 @@ export type CatalogRegion = {
   pbfUrl: string
 }
 
+export type CoverageRegion = { id: string; name: string }
+
+// GET /api/coverage?lat=&lng=: whether Valhalla can route from a point, and which regions it lies in.
+export type Coverage = {
+  // The served tiles include this point.
+  covered: boolean
+  // The installed region that covers it ("planet" when the planet is installed), or null.
+  servedBy: CoverageRegion | null
+  // The smallest Geofabrik region containing the point: the one to install to cover it. Null at sea.
+  region: CoverageRegion | null
+  // The country (one level below a continent) that region belongs to, or null.
+  country: CoverageRegion | null
+}
+
 export type InstalledRegion = {
   id: string
   name: string

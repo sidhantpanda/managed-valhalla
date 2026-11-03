@@ -14,6 +14,8 @@ export const paths = {
   admin: path.join(DATA_DIR, 'admin'),
   state: path.join(DATA_DIR, 'admin', 'state.json'),
   catalogCache: path.join(DATA_DIR, 'admin', 'geofabrik-index.json'),
+  // Region outlines, for /api/coverage.
+  outlineCache: path.join(DATA_DIR, 'admin', 'geofabrik-outlines.json'),
   build: path.join(DATA_DIR, 'admin', 'build'),
   // What Valhalla serves. Replacing the tar makes the Valhalla container restart onto the new tiles.
   servingConfig: path.join(DATA_DIR, 'valhalla.json'),
