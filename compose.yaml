@@ -1,13 +1,13 @@
 # Self-hosted Valhalla routing with a web admin for choosing map regions.
 # valhalla-admin (http://localhost:8003) downloads OpenStreetMap regions and builds routing tiles into ./data/valhalla;
 # valhalla serves them and restarts onto each new build.
-name: geo-engine
+name: valhalla
 services:
   valhalla:
     image: ghcr.io/valhalla/valhalla-scripted:latest
-    container_name: geo-engine-valhalla
+    container_name: valhalla
     restart: unless-stopped
-    entrypoint: ["/bin/bash", "/geo-engine/start.sh"]
+    entrypoint: ["/bin/bash", "/valhalla-manager/start.sh"]
     environment:
       # Threads serving requests.
       server_threads: ${VALHALLA_THREADS:-4}
@@ -15,7 +15,7 @@ services:
       VALHALLA_MAX_CACHE_BYTES: ${VALHALLA_MAX_CACHE_BYTES:-134217728}
     volumes:
       - ./data/valhalla:/custom_files
-      - ./valhalla/start.sh:/geo-engine/start.sh:ro
+      - ./valhalla/start.sh:/valhalla-manager/start.sh:ro
     ports:
       - "${VALHALLA_PORT:-8002}:8002"
     # Sized so the whole stack fits on a 4 GB machine; raise it if you have more memory.
@@ -30,8 +30,8 @@ services:
 
   valhalla-admin:
     build: ./valhalla-admin
-    image: geo-engine-valhalla-admin
-    container_name: geo-engine-valhalla-admin
+    image: valhalla-manager-admin
+    container_name: valhalla-manager-admin
     restart: unless-stopped
     environment:
       DATA_DIR: /custom_files

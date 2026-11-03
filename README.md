@@ -1,4 +1,4 @@
-# geo-engine
+# valhalla-manager
 
 Self-hosted [Valhalla](https://github.com/valhalla/valhalla) routing with a web admin for picking map regions. Run it with Docker Compose, choose the parts of the world you need, and get a routing API that runs on a machine with as little as 4 GB of RAM.
 
@@ -12,8 +12,8 @@ Two containers share one data folder, `./data/valhalla`:
 Requires Docker with Compose v2.
 
 ```sh
-git clone https://github.com/sidhantpanda/managed-valhalla.git
-cd managed-valhalla
+git clone https://github.com/sidhantpanda/valhalla-manager.git
+cd valhalla-manager
 cp .env.example .env    # optional: pick limits and the first region
 docker compose up -d --build
 open http://localhost:8003
@@ -96,7 +96,7 @@ The admin is a Next.js app in [`valhalla-admin/`](valhalla-admin). See [CONTRIBU
 
 ## Data and attribution
 
-Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), available under the [Open Database License](https://opendatacommons.org/licenses/odbl/). If you show routes from geo-engine to users, credit OpenStreetMap. Extracts are downloaded from [Geofabrik](https://download.geofabrik.de). Valhalla is MIT licensed.
+Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright), available under the [Open Database License](https://opendatacommons.org/licenses/odbl/). If you show routes from valhalla-manager to users, credit OpenStreetMap. Extracts are downloaded from [Geofabrik](https://download.geofabrik.de). Valhalla is MIT licensed.
 
 ## License
 

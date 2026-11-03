@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve geo-engine. Bug reports, fixes, docs and new features are all welcome.
+Thanks for helping improve valhalla-manager. Bug reports, fixes, docs and new features are all welcome.
 
 ## Before you start
 

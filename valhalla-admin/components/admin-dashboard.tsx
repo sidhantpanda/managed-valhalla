@@ -72,7 +72,7 @@ export function AdminDashboard() {
       <header className="flex flex-wrap items-end justify-between gap-x-10 gap-y-3 border-b-[3px] border-double border-ink pb-4">
         <div>
           <h1 className="map-label text-4xl font-semibold leading-none sm:text-5xl">Valhalla regions</h1>
-          <p className="mt-2 text-sm text-ink-soft">Choose the parts of the world geo-engine can route in.</p>
+          <p className="mt-2 text-sm text-ink-soft">Choose the parts of the world Valhalla can route in.</p>
         </div>
         {state && <ServiceStatus state={state} now={now} />}
       </header>

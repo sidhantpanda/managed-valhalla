@@ -8,7 +8,7 @@ Include what you found, how to reproduce it, and its impact. You should get a re
 
 ## Deployment model
 
-geo-engine is meant to run on a private network. Know these before exposing it:
+valhalla-manager is meant to run on a private network. Know these before exposing it:
 
 - **The admin (port 8003) has no authentication.** Anyone who can reach it can add regions, start and cancel builds, and make the server download large files. Never expose it to the internet. If you need remote access, put it behind a VPN or a reverse proxy that requires a login.
 - **The Valhalla API (port 8002) has no authentication or rate limiting.** If you expose it publicly, put a reverse proxy in front of it that adds both, since route requests can be CPU-heavy.

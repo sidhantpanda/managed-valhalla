@@ -11,7 +11,7 @@ const archivo = Archivo({
 
 export const metadata: Metadata = {
   title: "Valhalla regions",
-  description: "Choose which parts of the world geo-engine's Valhalla can route in, and rebuild its tiles.",
+  description: "Choose which parts of the world Valhalla can route in, and rebuild its tiles.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
